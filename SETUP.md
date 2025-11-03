@@ -6,7 +6,7 @@
 
 - Docker Desktop installed and running
 - Docker Compose V2
-- Python 3.11+ (for local development)
+- Python 3.10+ (for local development)
 - 8GB+ RAM recommended
 
 ### Project Structure

@@ -49,7 +49,7 @@ ChromaDB    PostgreSQL   Apertus API
 | Component | Technology |
 |-----------|------------|
 | **Frontend** | OpenWebUI (Docker) |
-| **Backend** | FastAPI + Python 3.11 |
+| **Backend** | FastAPI + Python 3.10+ |
 | **Database** | Railway PostgreSQL (cloud) |
 | **Vector Store** | ChromaDB (Docker) |
 | **LLM** | Swisscom Apertus 70B |
@@ -139,7 +139,7 @@ Swiss-Vot-Apertus/
 cd backend
 
 # Create virtual environment
-python3.11 -m venv venv
+python3.10 -m venv venv
 source venv/bin/activate
 
 # Install dependencies
