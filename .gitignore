@@ -35,7 +35,7 @@ charts/*/charts/*.tgz
 *.backup
 
 # Ignore model/data cache and HuggingFace models
-data/
+# Note: Keep data/current_votes.json for voting data
 cache/
 models/
 *.bin
@@ -45,6 +45,11 @@ models/
 *.db
 *.pkl
 *.h5
+
+# Virtual environments
+venv/
+.venv/
+env/
 
 # Ignore all sentence-transformers and HuggingFace cache
 **/.cache/

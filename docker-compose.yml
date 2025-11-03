@@ -1,0 +1,92 @@
+services:
+  # OpenWebUI - Frontend Interface
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: swiss-voting-openwebui
+    ports:
+      - "3000:8080"
+    environment:
+      - OPENAI_API_BASE_URL=http://backend:8000/v1
+      - OPENAI_API_KEY=${APERTUS_API_KEY:-dummy}
+      - WEBUI_AUTH=false
+      - ENABLE_RAG_WEB_SEARCH=false
+      - ENABLE_RAG_LOCAL_WEB_FETCH=false
+      - CHROMA_HTTP_HOST=chromadb
+      - CHROMA_HTTP_PORT=8000
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///data/webui.db}
+    volumes:
+      - openwebui_data:/app/backend/data
+    depends_on:
+      - backend
+      - chromadb
+    networks:
+      - swiss-voting-net
+    restart: unless-stopped
+
+  # ChromaDB - Vector Store for RAG
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: swiss-voting-chromadb
+    ports:
+      - "8001:8000"
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    volumes:
+      - chromadb_data:/chroma/chroma
+    networks:
+      - swiss-voting-net
+    restart: unless-stopped
+
+  # FastAPI Backend - Custom Pipeline & API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: swiss-voting-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - APERTUS_API_KEY=${APERTUS_API_KEY}
+      - APERTUS_API_URL=${APERTUS_API_URL:-https://api.swisscom.com/apertus/v1}
+      - DATABASE_URL=${DATABASE_URL}
+      - CHROMADB_HOST=chromadb
+      - CHROMADB_PORT=8000
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    volumes:
+      - ./backend:/app
+      - ./data:/app/data
+      - ./scripts:/app/scripts
+    depends_on:
+      - chromadb
+    networks:
+      - swiss-voting-net
+    restart: unless-stopped
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # PostgreSQL - Local Development Database (Optional)
+  # For production, use Railway PostgreSQL and comment this out
+  postgres:
+    image: postgres:16-alpine
+    container_name: swiss-voting-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-swiss_voting}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-dev_password}
+      - POSTGRES_DB=${POSTGRES_DB:-swiss_voting_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - swiss-voting-net
+    restart: unless-stopped
+
+volumes:
+  openwebui_data:
+  chromadb_data:
+  postgres_data:
+
+networks:
+  swiss-voting-net:
+    driver: bridge

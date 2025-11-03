@@ -1,0 +1,114 @@
+{
+  "metadata": {
+    "last_updated": "2025-10-28T18:38:52Z",
+    "data_version": "1.0",
+    "sources": [
+      "https://swissvotes.ch",
+      "https://www.admin.ch"
+    ]
+  },
+  "federal_votes": [
+    {
+      "vote_id": "681",
+      "official_number": "681.00",
+      "details_url": "https://swissvotes.ch/vote/681.00",
+      "offizieller_titel": "Volksinitiative «Für eine soziale Klimapolitik – steuerlich gerecht finanziert (Initiative für eine Zukunft)»",
+      "schlagwort": "Erbschaftssteuer",
+      "abstimmungsdatum": "30.11.2025",
+      "abstimmungsnummer": "681",
+      "rechtsform": "Volksinitiative",
+      "politikbereich": "Öffentliche Finanzen > Steuerwesen > Direkte Steuern; Umwelt und Lebensraum > Umwelt > Umweltpolitik",
+      "beschreibung_annee_politique_suisse_url": "https://anneepolitique.swiss/prozesse/64991",
+      "abstimmungstext_pdf": "https://swissvotes.ch/vote/681.00/abstimmungstext-de.pdf",
+      "offizielle_chronologie_url": "https://www.bk.admin.ch/ch/d/pore/vi/vis532.html",
+      "urheberinnen": "JUSO",
+      "vorpruefung_pdf": "https://swissvotes.ch/vote/681.00/vorpruefung-de.pdf",
+      "unterschriften": "109’988",
+      "sammeldauer": "541 Tage",
+      "zustandekommen_pdf": "https://swissvotes.ch/vote/681.00/zustandekommen-de.pdf",
+      "botschaft_des_bundesrats_pdf": "https://swissvotes.ch/vote/681.00/botschaft-de.pdf",
+      "geschaeftsnummer": "24.082",
+      "parlamentsberatung_url": "https://www.parlament.ch/de/ratsbetrieb/suche-curia-vista/geschaeft?AffairId=20240082",
+      "behandlungsdauer_parlament": "189 Tage",
+      "position_parlament": "Ablehnend",
+      "position_nationalrat": "Ablehnend\n                            \n                                \n                                    \n                                        (57 Ja, 132 Nein)",
+      "position_staenderat": "Ablehnend\n                            \n                                \n                                    \n                                        (7 Ja, 36 Nein)",
+      "abstimmungsbuechlein_pdf": "https://swissvotes.ch/vote/681.00/brochure-de.pdf",
+      "position_bundesrat": "Ablehnend",
+      "online_informationen_behoerden_url": "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20251130/initiative-fuer-eine-zukunft.html",
+      "parteiparolen": [
+        "Ja: GPS",
+        "Ja: PdA",
+        "Ja: SPS",
+        "Nein: EDU",
+        "Nein: EVP",
+        "Nein: FDP",
+        "Nein: GLP",
+        "Nein: Mitte",
+        "Nein: SVP"
+      ],
+      "waehlendenanteil_ja_lager": "https://swissvotes.ch/vote/681.00/strengths",
+      "weitere_parolen": [
+        "Ja: VPOD",
+        "Ja: GSoA",
+        "Ja: Klima-Allianz Schweiz",
+        "Ja: Pro Velo Schweiz",
+        "Nein: eco",
+        "Nein: Swissmem",
+        "Nein: Baumeisterverband",
+        "Nein: Schweizer Tourismus-Verband"
+      ],
+      "kampagnenfinanzierung_url": "https://politikfinanzierung.efk.admin.ch/app/de/campaign-financings"
+    },
+    {
+      "vote_id": "680",
+      "official_number": "680.00",
+      "details_url": "https://swissvotes.ch/vote/680.00",
+      "offizieller_titel": "Volksinitiative «Für eine engagierte Schweiz (Service-citoyen-Initiative)»",
+      "abstimmungsdatum": "30.11.2025",
+      "abstimmungsnummer": "680",
+      "rechtsform": "Volksinitiative",
+      "politikbereich": "Sicherheitspolitik > Armee; Staatsordnung > Nationale Identität; Wirtschaft > Arbeit und Beschäftigung",
+      "beschreibung_annee_politique_suisse_url": "https://anneepolitique.swiss/prozesse/69160",
+      "abstimmungstext_pdf": "https://swissvotes.ch/vote/680.00/abstimmungstext-de.pdf",
+      "offizielle_chronologie_url": "https://www.bk.admin.ch/ch/d/pore/vi/vis524.html",
+      "urheberinnen": "Verein «Service Citoyen», unterstützt von GLP, EVP, Piratenpartei, Junger Mitte und weiteren Organisationen",
+      "vorpruefung_pdf": "https://swissvotes.ch/vote/680.00/vorpruefung-de.pdf",
+      "unterschriften": "107’613",
+      "sammeldauer": "548 Tage",
+      "zustandekommen_pdf": "https://swissvotes.ch/vote/680.00/zustandekommen-de.pdf",
+      "botschaft_des_bundesrats_pdf": "https://swissvotes.ch/vote/680.00/botschaft-de.pdf",
+      "geschaeftsnummer": "24.079",
+      "parlamentsberatung_url": "https://www.parlament.ch/de/ratsbetrieb/suche-curia-vista/geschaeft?AffairId=20240079",
+      "behandlungsdauer_parlament": "247 Tage",
+      "position_parlament": "Ablehnend",
+      "position_nationalrat": "Ablehnend\n                            \n                                \n                                    \n                                        (18 Ja, 173 Nein)",
+      "position_staenderat": "Ablehnend\n                            \n                                \n                                    \n                                        (8 Ja, 34 Nein)",
+      "abstimmungsbuechlein_pdf": "https://swissvotes.ch/vote/680.00/brochure-de.pdf",
+      "position_bundesrat": "Ablehnend",
+      "online_informationen_behoerden_url": "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20251130/service-citoyen-initiative.html",
+      "parteiparolen": [
+        "Ja: EVP",
+        "Ja: GLP",
+        "Nein: EDU",
+        "Nein: FDP",
+        "Nein: GPS",
+        "Nein: Mitte",
+        "Nein: PdA",
+        "Nein: SPS",
+        "Nein: SVP"
+      ],
+      "waehlendenanteil_ja_lager": "https://swissvotes.ch/vote/680.00/strengths",
+      "weitere_parolen": [
+        "Nein: Schweizer Tourismus-Verband",
+        "Nein: Allianz Sicherheit Schweiz",
+        "Nein: GSoA"
+      ],
+      "abweichende_sektionen": [
+        "Ja: JM CH"
+      ],
+      "kampagnenfinanzierung_url": "https://politikfinanzierung.efk.admin.ch/app/de/campaign-financings"
+    }
+  ],
+  "usage_metrics": {}
+}
