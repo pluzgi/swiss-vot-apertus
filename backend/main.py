@@ -14,7 +14,11 @@ from datetime import datetime
 from config import settings
 from database import get_db, get_all_initiatives, get_initiative_by_vote_id, search_initiatives_by_keyword
 from rag import get_rag_pipeline
+from apertus_client import get_apertus_client
+from pipeline import get_pipeline
 from sqlalchemy.orm import Session
+from fastapi.responses import StreamingResponse
+import json as json_lib
 
 # Configure logging
 logging.basicConfig(

@@ -15,10 +15,13 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     LOG_LEVEL: str = "info"
 
-    # Swisscom Apertus API
-    APERTUS_API_KEY: str = ""
+    # Swisscom Apertus API (Swiss AI Platform)
+    SWISS_AI_PLATFORM_API_KEY: str = ""  # Primary key (from hacker profile)
+    APERTUS_API_KEY: str = ""  # Alternative name
     APERTUS_API_URL: str = "https://api.swisscom.com/apertus/v1"
-    APERTUS_MODEL: str = "apertus-70b"
+    APERTUS_MODEL: str = "Apertus-70B-Instruct-2509"
+    APERTUS_RATE_LIMIT_RPM: int = 300  # 5 requests per second = 300/min
+    APERTUS_RATE_LIMIT_TPM: int = 100000  # 100k tokens per minute
 
     # Database
     DATABASE_URL: str = "postgresql://swiss_voting:dev_password@postgres:5432/swiss_voting_db"
@@ -69,3 +72,8 @@ def is_production() -> bool:
 def is_development() -> bool:
     """Check if running in development environment"""
     return settings.ENVIRONMENT.lower() == "development"
+
+
+def get_apertus_api_key() -> str:
+    """Get Apertus API key (try both environment variable names)"""
+    return settings.SWISS_AI_PLATFORM_API_KEY or settings.APERTUS_API_KEY
