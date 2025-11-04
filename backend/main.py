@@ -3,7 +3,7 @@ Swiss Voting Assistant - FastAPI Backend
 Provides API endpoints and OpenWebUI Pipeline integration
 """
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -12,6 +12,9 @@ import logging
 from datetime import datetime
 
 from config import settings
+from database import get_db, get_all_initiatives, get_initiative_by_vote_id, search_initiatives_by_keyword
+from rag import get_rag_pipeline
+from sqlalchemy.orm import Session
 
 # Configure logging
 logging.basicConfig(
@@ -93,62 +96,88 @@ async def root():
 
 
 # ========================================
-# Initiative API Endpoints (Placeholder)
+# Initiative API Endpoints
 # ========================================
 
 @app.get("/api/initiatives")
-async def get_initiatives():
-    """
-    Get all upcoming Swiss initiatives
-    TODO: Implement in Step 2 with database integration
-    """
-    logger.info("GET /api/initiatives called")
-    return {
-        "message": "Initiative listing endpoint - To be implemented in Step 2",
-        "federal_initiatives": []
-    }
+async def get_initiatives(limit: int = 100, db: Session = Depends(get_db)):
+    """Get all upcoming Swiss popular initiatives"""
+    logger.info(f"GET /api/initiatives called (limit={limit})")
+
+    try:
+        initiatives = get_all_initiatives(db, limit=limit)
+        return {
+            "count": len(initiatives),
+            "initiatives": [init.to_dict() for init in initiatives]
+        }
+    except Exception as e:
+        logger.error(f"Error fetching initiatives: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch initiatives")
 
 
 @app.get("/api/initiatives/{vote_id}")
-async def get_initiative(vote_id: str):
-    """
-    Get specific initiative by ID
-    TODO: Implement in Step 2 with database integration
-    """
+async def get_initiative(vote_id: str, db: Session = Depends(get_db)):
+    """Get specific initiative by vote ID"""
     logger.info(f"GET /api/initiatives/{vote_id} called")
-    return {
-        "message": f"Initiative detail endpoint for {vote_id} - To be implemented in Step 2",
-        "vote_id": vote_id
-    }
+
+    try:
+        initiative = get_initiative_by_vote_id(db, vote_id)
+
+        if not initiative:
+            raise HTTPException(status_code=404, detail=f"Initiative {vote_id} not found")
+
+        return initiative.to_dict()
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching initiative {vote_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch initiative")
 
 
 @app.post("/api/search")
-async def search_initiatives(query: InitiativeQuery):
-    """
-    Search initiatives by keyword
-    TODO: Implement in Step 2 with database integration
-    """
+async def search_initiatives(query: InitiativeQuery, db: Session = Depends(get_db)):
+    """Search initiatives by keyword in title or policy area"""
     logger.info(f"POST /api/search called with query: {query.query}")
-    return {
-        "message": "Search endpoint - To be implemented in Step 2",
-        "query": query.query,
-        "results": []
-    }
+
+    try:
+        results = search_initiatives_by_keyword(
+            db,
+            keyword=query.query,
+            limit=query.top_k or 10
+        )
+
+        return {
+            "query": query.query,
+            "count": len(results),
+            "results": [init.to_dict() for init in results]
+        }
+
+    except Exception as e:
+        logger.error(f"Search error: {e}")
+        raise HTTPException(status_code=500, detail="Search failed")
 
 
 @app.post("/api/rag/query")
 async def rag_query(query: InitiativeQuery):
-    """
-    RAG-enabled semantic search
-    TODO: Implement in Step 2 with ChromaDB integration
-    """
+    """RAG-enabled semantic search through brochure texts"""
     logger.info(f"POST /api/rag/query called with query: {query.query}")
-    return {
-        "message": "RAG query endpoint - To be implemented in Step 2",
-        "query": query.query,
-        "context": [],
-        "answer": "RAG pipeline not yet implemented"
-    }
+
+    try:
+        rag_pipeline = get_rag_pipeline()
+
+        result = rag_pipeline.query_with_context(
+            query=query.query,
+            language=query.language or "de",
+            top_k=query.top_k or 5,
+            include_metadata=True
+        )
+
+        return result
+
+    except Exception as e:
+        logger.error(f"RAG query error: {e}")
+        raise HTTPException(status_code=500, detail=f"RAG query failed: {str(e)}")
 
 
 # ========================================
